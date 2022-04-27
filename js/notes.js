@@ -559,3 +559,76 @@ setInterval
 // позволяет вызывать функцию регулярно, повторяя вызов через определённый интервал времени.
 // метод setInterval имеет такой же синтаксис как setTimeout
 // чтобы остановить дальнейшее выполнение функции, необходимо вызвать clearInterval(timerId).
+
+
+// !_________________________ПРИВЯЗКА КОНТЕКСТА К ФУНКЦИЯМ
+
+// У функций есть встроенный метод bind, который позволяет зафиксировать this.
+let boundFunc = func.bind(context);
+
+// Все аргументы передаются исходному методу func как есть, например:
+let user = {
+    firstName: "Вася"
+};
+
+function func(phrase) {
+    alert(phrase + ', ' + this.firstName);
+}
+
+// Привязка this к user
+let funcUser = func.bind(user);
+
+funcUser("Привет");
+
+// Если у объекта много методов и мы планируем их активно передавать,
+// то можно привязать контекст для них всех в цикле:
+
+for (let key in user) {
+    if (typeof user[key] == 'function') {
+        user[key] = user[key].bind(user);
+    }
+}
+
+// Мы можем привязать не только this, но и аргументы.
+// Это позволяет привязать контекст this и начальные аргументы функции.
+// Полный синтаксис bind:
+let bound = func.bind(context, [arg1], [arg2], ...);
+
+// Например:
+function mul(a, b) {
+    return a * b;
+}
+
+let double = mul.bind(null, 2);
+
+alert(double(3)); // = mul(2, 3) = 6
+
+// Частичное применение без контекста
+// Если мы хотим зафиксировать некоторые аргументы, но не контекст this
+// Встроенный bind не позволяет этого. 
+// Создаём вспомогательную функцию partial, которая привязывает только аргументы.
+function partial(func, ...argsBound) {
+    return function (...args) { // (*)
+        return func.call(this, ...argsBound, ...args);
+    }
+}
+
+// использование:
+let user = {
+    firstName: "John",
+    say(time, phrase) {
+        alert(`[${time}] ${this.firstName}: ${phrase}!`);
+    }
+};
+
+// добавляем частично применённый метод с фиксированным временем
+user.sayNow = partial(user.say, new Date().getHours() + ':' + new Date().getMinutes());
+
+user.sayNow("Hello");
+// Что-то вроде этого:
+// [10:00] John: Hello!
+// Результатом вызова partial(func[, arg1, arg2...]) будет обёртка(*), которая вызывает func с:
+// Тем же this, который она получает(для вызова user.sayNow – это будет user)
+// Затем передаёт ей ...argsBound – аргументы из вызова partial("10:00")
+// Затем передаёт ей ...args – аргументы, полученные обёрткой("Hello")
+
