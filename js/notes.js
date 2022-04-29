@@ -632,3 +632,38 @@ user.sayNow("Hello");
 // Затем передаёт ей ...argsBound – аргументы из вызова partial("10:00")
 // Затем передаёт ей ...args – аргументы, полученные обёрткой("Hello")
 
+
+// !_________________________ФЛАГИ И ДЕСКРИПТОРЫ СВОЙСТВ
+
+// Флаги свойств
+// writable – если true, свойство можно изменить, иначе оно только для чтения.
+// enumerable – если true, свойство перечисляется в циклах, в противном случае циклы его игнорируют.
+// configurable – если true, свойство можно удалить, а эти атрибуты можно изменять.
+
+Object.getOwnPropertyDescriptor(obj, propertyName);
+// позволяет получить полную информацию о свойстве.
+
+
+Object.defineProperty(obj, propertyName, descriptor);
+// Метод для изменения флагов
+
+Object.defineProperties(obj, descriptors)
+// метод определять множество свойств сразу.
+
+Object.defineProperties(user, {
+    name: { value: "John", writable: false },
+    surname: { value: "Smith", writable: false },
+    // ...
+});
+
+Object.getOwnPropertyDescriptors(obj).
+    // метод для получения сразу всех дескрипторов свойств.
+
+    // Обычно при клонировании объекта мы используем присваивание, чтобы скопировать его свойства:
+    for(let key in user) {
+    clone[key] = user[key]
+}
+// Но это не копирует флаги. Так что если нам нужен клон «получше», предпочтительнее использовать Object.defineProperties.
+// Другое отличие в том, что for..in игнорирует символьные
+// и неперечислимые свойства, а Object.getOwnPropertyDescriptors возвращает дескрипторы всех свойств.
+
