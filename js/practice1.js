@@ -34,8 +34,8 @@ const a = prompt("Один из последних просмотренных ф
         'logan': '8.1'
     } */
 
-personalMovieDB.movies[a] = b;
-personalMovieDB.movies[c] = d;
+personalMovieDB.movies.a = b;
+personalMovieDB.movies.b = d;
 
 /* Проверить, чтобы все работало без ошибок в консоли */
 
