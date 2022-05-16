@@ -667,3 +667,14 @@ Object.getOwnPropertyDescriptors(obj).
 // Другое отличие в том, что for..in игнорирует символьные
 // и неперечислимые свойства, а Object.getOwnPropertyDescriptors возвращает дескрипторы всех свойств.
 
+// !_________________________МЕТОДЫ ПРОТОТИПОВ
+
+Object.create(proto, [descriptors]);
+// Создаёт пустой объект со свойством [[Prototype]], указанным как proto,
+// и необязательными дескрипторами свойств descriptors.
+
+Object.getPrototypeOf(obj);
+// Возвращает свойство [[Prototype]] объекта obj.
+
+Object.setPrototypeOf(obj, proto);
+// Устанавливает свойство [[Prototype]] объекта obj как proto.
