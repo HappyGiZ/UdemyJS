@@ -667,6 +667,7 @@ Object.getOwnPropertyDescriptors(obj).
 // Другое отличие в том, что for..in игнорирует символьные
 // и неперечислимые свойства, а Object.getOwnPropertyDescriptors возвращает дескрипторы всех свойств.
 
+
 // !_________________________МЕТОДЫ ПРОТОТИПОВ
 
 Object.create(proto, [descriptors]);
@@ -678,3 +679,20 @@ Object.getPrototypeOf(obj);
 
 Object.setPrototypeOf(obj, proto);
 // Устанавливает свойство [[Prototype]] объекта obj как proto.
+
+
+// !_________________________КЛАССЫ
+
+// Базовый синтаксис для классов выглядит так:
+
+class MyClass {
+    prop = value; // свойство
+    constructor(...) { // конструктор
+        // ...
+    }
+    method(...) { } // метод
+    get something(...) { } // геттер
+    set something(...) { } // сеттер
+    [Symbol.iterator]() { } // метод с вычисляемым именем (здесь - символом)
+    // ...
+}
