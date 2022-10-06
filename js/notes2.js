@@ -6,9 +6,11 @@ const { border, bg } = options.colors;              // деструктуриз�
 const box = document.getElementById('box'),
     buttons = document.getElementsByTagName('button'),
     circles = document.getElementsByClassName('circle'),
+
     hearts = document.querySelectorAll('.heart'),   
     wrapper = document.querySelector('.wrapper'),   // первый элемент с классом .wrapper
     oneHeart = wrapper.querySelectorAll('.heart'),  // все элементы .heart исключительно внутри wrapper
+    
     dif = document.createElement('div');
 
 
