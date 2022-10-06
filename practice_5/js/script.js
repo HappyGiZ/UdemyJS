@@ -26,23 +26,42 @@ const movieDB = {
 
 // 1
 
-document.querySelector('.promo__adv').remove();
+const adv = document.querySelectorAll('.promo__adv img');
+
+adv.forEach(elem => {
+    elem.remove();
+});
 
 // 2
 
-document.querySelector('.promo__genre').textContent = 'ДРАМА';
+const genre = document.querySelector('.promo__genre');
+
+genre.textContent = 'ДРАМА';
 
 // 3
 
-document.querySelector('.promo__bg').style.background = 'url(img/bg.jpg) center center/cover no-repeat';
+const poster = document.querySelector('.promo__bg');
 
-
+poster.style.backgroundImage = 'url("img/bg.jpg")';
+// poster.style.background = 'url(img/bg.jpg) center center/cover no-repeat';
 
 // 4 + 5
 
 const list = document.querySelectorAll('.promo__interactive-item'); // список
 
-
 for (let k = 0; k < movieDB.movies.length; k++) {
-    list[k].textContent = `${k + 1} ${movieDB.movies.sort()[k].toUpperCase()}`;
+    list[k].textContent = `${k + 1} - ${movieDB.movies.sort()[k]}`;
 }
+
+// const movieList = document.querySelector('.promo__interactive-list');
+
+// movieList.innerHTML = ''; // очистка списка на существующей странице
+// movieDB.movies.sort();
+
+// movieDB.movies.forEach((film, i) => {
+//     movieList.innerHTML += `
+//     <li class="promo__interactive-item">${i+1} - ${movieDB.movies[i]}
+//         <div class="delete"></div>
+//     </li>
+//     `;
+// });
