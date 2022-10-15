@@ -52,3 +52,12 @@ btns.forEach(element => {                                // примерение
 
 
 console.log(document.querySelector('#current').parentNode); // получение родителя элемента
+
+
+
+box.classList.length;                                       // узнать количество классов у элемента
+box.classList.item(0);                                      // получить класс элемента под номером (0)
+box.classList.add('red');                                   // добавить класс
+box.classList.remove('blue');                               // удалить
+box.classList.toggle('blue');                               // переключить (добавить/удалить) класс
+box.classList.contains('red');                              // полверить есть ли класс (true/false)
