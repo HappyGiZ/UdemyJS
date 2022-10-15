@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
       item.classList.remove('show', 'fade');
     });
 
-    tabs.forEach(item => {                                   // убрать активность с каждого таба
+    tabs.forEach(item => {                                      // убрать активность с каждого таба
       item.classList.remove('tabheader__item_active');
     });
   }
