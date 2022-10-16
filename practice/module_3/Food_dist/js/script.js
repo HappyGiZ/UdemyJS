@@ -1,5 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
 
+  // Tabs
+
   const tabs = document.querySelectorAll('.tabheader__item'),   // каждый таб
     tabsContent = document.querySelectorAll('.tabcontent'),     // контент в каждом табе
     tabsParrent = document.querySelector('.tabheader__items');  // блок с табами
@@ -36,4 +38,29 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+  // Timer
+
+  const deadline = '2022-12-31';
+
+  function getTimeRemaining(endtime) {
+    // преобразование полученной извне строки в числовое представление
+    // получение разницы между заданной датой и текущей (можно просто new Date())
+    const t = Date.parse(endtime) - Date.parse(new Date()),
+      // количество дней в таймере
+      // 1000 милисекунд * 60 секунд * 60 минут * 24 часа = 86400000 милисекунд
+      days = Math.floor(t / 86400000);
+
+
+
+
+
+
+  }
+
+
+
+
+
+
 });
