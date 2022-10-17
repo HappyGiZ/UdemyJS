@@ -1,5 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
 
+
   // Tabs
 
   const tabs = document.querySelectorAll('.tabheader__item'),   // каждый таб
@@ -39,6 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+
   // Timer
 
   const deadline = '2022-12-31';
@@ -55,9 +57,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-
   }
-
 
 
 
