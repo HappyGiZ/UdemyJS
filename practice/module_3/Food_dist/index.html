@@ -20,7 +20,7 @@
       </nav>
     </div>
     <div class="header__right-block">
-      <button class="btn btn_white">Связаться с нами</button>
+      <button data-modalOpen class="btn btn_white">Связаться с нами</button>
     </div>
   </header>
   <div class="sidepanel">
@@ -97,7 +97,7 @@
         </div>
       </div>
       <div class="offer__action">
-        <button class="btn btn_dark">Связаться с нами</button>
+        <button data-modalOpen class="btn btn_dark">Связаться с нами</button>
       </div>
     </div>
     <div class="container">
@@ -209,7 +209,7 @@
           <div class="menu__item-divider"></div>
           <div class="menu__item-price">
             <div class="menu__item-cost">Цена:</div>
-            <div class="menu__item-total"><span>229</span> грн/день</div>
+            <div class="menu__item-total"><span>229</span> руб./день</div>
           </div>
         </div>
         <div class="menu__item">
@@ -221,7 +221,7 @@
           <div class="menu__item-divider"></div>
           <div class="menu__item-price">
             <div class="menu__item-cost">Цена:</div>
-            <div class="menu__item-total"><span>550</span> грн/день</div>
+            <div class="menu__item-total"><span>550</span> руб./день</div>
           </div>
         </div>
         <div class="menu__item">
@@ -233,7 +233,7 @@
           <div class="menu__item-divider"></div>
           <div class="menu__item-price">
             <div class="menu__item-cost">Цена:</div>
-            <div class="menu__item-total"><span>430</span> грн/день</div>
+            <div class="menu__item-total"><span>430</span> руб./день</div>
           </div>
         </div>
       </div>
@@ -313,7 +313,7 @@
     <div class="modal__dialog">
       <div class="modal__content">
         <form action="#">
-          <div class="modal__close">&times;</div>
+          <div data-modalClose class="modal__close">&times;</div>
           <div class="modal__title">Мы свяжемся с вами как можно быстрее!</div>
           <input required placeholder="Ваше имя" name="name" type="text" class="modal__input">
           <input required placeholder="Ваш номер телефона" name="phone" type="phone" class="modal__input">
