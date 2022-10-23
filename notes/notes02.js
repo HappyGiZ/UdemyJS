@@ -94,3 +94,19 @@ let firstUser = new User('Dan', 315820);    // User { name: 'Dan', id: 315820, h
 User.prototype.exit = function () {         // добавление метода в существующий объект
     console.log(`${this.name} всё`);
 };
+
+class User {                                // класс (замена функции конструктора)
+    constructor(name, id) {
+        this.name = name;
+        this.id = id;
+        this.human = true;
+    }
+    hello() {
+
+        console.log(`Hello, my name is ${this.name} `);
+    }
+    exit() {
+        console.log(`${this.name} всё`);
+    }
+
+}
