@@ -46,7 +46,7 @@ btn.removeEventListener('click', deleter);              // удаление об
 e.preventDefault();                                     // отмена стандартного поведения элемента (всегда помещается в начале обработчика)
 
 btns.forEach(element => {                                // примерение функции для каждого элемента (кнопки)
-    element.addEventListener('click', informer, { once: true });
+    element.addEventListener('click', informer, { once: true });    // { once: true } - один раз
 });
 
 

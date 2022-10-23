@@ -7,18 +7,20 @@ window.addEventListener('DOMContentLoaded', () => {
     tabsContent = document.querySelectorAll('.tabcontent'),     // контент в каждом табе
     tabsParrent = document.querySelector('.tabheader__items');  // блок с табами
 
-  function hideTabContent() {                                   // скрыть контент каждого таба
+  // скрыть контент каждого таба
+  function hideTabContent() {
     tabsContent.forEach(item => {
       item.classList.add('hide');
       item.classList.remove('show', 'fade');
     });
 
-    tabs.forEach(item => {                                      // убрать активность с каждого таба
+    // убрать активность с каждого таба
+    tabs.forEach(item => {
       item.classList.remove('tabheader__item_active');
     });
   }
-
-  function showTabContent(i = 0) {                              // сделать активным и показать контент
+  // сделать активным и показать контент
+  function showTabContent(i = 0) {
     tabsContent[i].classList.add('show', 'fade');
     tabsContent[i].classList.remove('hide');
     tabs[i].classList.add('tabheader__item_active');
@@ -27,14 +29,17 @@ window.addEventListener('DOMContentLoaded', () => {
   hideTabContent();
   showTabContent();
 
-  tabsParrent.addEventListener('click', (event) => {            // обработчик событий по табам
+  // обработчик событий по табам
+  tabsParrent.addEventListener('click', (event) => {
     const target = event.target;
-
-    if (target && target.classList.contains('tabheader__item')) {  // если target содержит класс 
-      tabs.forEach((item, i) => {                            // для каждого таба
+    // если target содержит класс 
+    if (target && target.classList.contains('tabheader__item')) {
+      tabs.forEach((item, i) => {
         if (target == item) {
-          hideTabContent();                                  // скрыть весь контент
-          showTabContent(i);                                 // показать контент выделенного таба 
+          // скрыть весь контент
+          hideTabContent();
+          // показать контент выделенного таба
+          showTabContent(i);
         }
       });
     }
@@ -108,33 +113,47 @@ window.addEventListener('DOMContentLoaded', () => {
     modalWindowClose = document.querySelector('[data-modalClose]'),
     body = document.querySelector('body');
 
-  function hideModalWindow() {
+  function openModalWindow() {
+    modalWindow.classList.toggle('show');
+    body.style.overflow = 'hidden';
+    // отмена случайного повторного открытия модального окна
+    clearInterval(modalTimerId);
+  }
+
+  function closeModalWindow() {
     modalWindow.classList.toggle('show');
     body.style.overflow = '';
   }
 
   modalWindowOpen.forEach(element => {
-    element.addEventListener('click', () => {
-      // modalWindow.classList.add('show');
-      // modalWindow.classList.remove('hide');
-      modalWindow.classList.toggle('show');
-      body.style.overflow = 'hidden';
-    })
+    element.addEventListener('click', openModalWindow)
   });
 
-  modalWindowClose.addEventListener('click', hideModalWindow);
+  modalWindowClose.addEventListener('click', closeModalWindow);
 
   modalWindow.addEventListener('click', (e) => {
     if (e.target === modalWindow) {
-      hideModalWindow();
+      closeModalWindow();
     }
   });
 
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Escape' && modalWindow.classList.contains('show')) {
-      hideModalWindow();
+      closeModalWindow();
     }
   });
 
+  const modalTimerId = setTimeout(openModalWindow, 5000);
 
+  function showModalByScroll() {
+    // сумма прокрученной части страницы и видимой части страницы
+    // >= полной высоте прокрутки (высоте сайта) - 1px (устранение бага браузера или монитора)
+    if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 1) {
+      openModalWindow();
+      // после срабатывания функции удалить обработчик событий
+      window.removeEventListener('scroll', showModalByScroll);
+    }
+  }
+
+  window.addEventListener('scroll', showModalByScroll);
 });
