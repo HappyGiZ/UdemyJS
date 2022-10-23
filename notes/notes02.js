@@ -66,15 +66,31 @@ box.classList.contains('red');                              // полверит�
 
 const now = new Date();
 
-console.log(now.getFullYear());         // (getUTC$) год
-console.log(now.getMonth());            // (getUTC$) месяц
-console.log(now.getDate());             // (getUTC$) день месяца
-console.log(now.getHours());            // (getUTC$) час
-console.log(now.getMinutes());          // (getUTC$) минута
-console.log(now.getSeconds());          // (getUTC$) секунда
-console.log(now.getMilliseconds());     // (getUTC$) милисекунда
-console.log(now.getDay());              // (getUTC$) номер дня недели
-console.log(now.getTimezoneOffset());   // разница между местным часовым поясом и UTC (в минутах)
-console.log(now.getTime());             // количество милисекунд от now
+console.log(now.getFullYear());             // (getUTC$) год
+console.log(now.getMonth());                // (getUTC$) месяц
+console.log(now.getDate());                 // (getUTC$) день месяца
+console.log(now.getHours());                // (getUTC$) час
+console.log(now.getMinutes());              // (getUTC$) минута
+console.log(now.getSeconds());              // (getUTC$) секунда
+console.log(now.getMilliseconds());         // (getUTC$) милисекунда
+console.log(now.getDay());                  // (getUTC$) номер дня недели
+console.log(now.getTimezoneOffset());       // разница между местным часовым поясом и UTC (в минутах)
+console.log(now.getTime());                 // количество милисекунд от now
 
-console.log(now.setHours(18));          // установить часы (и остальные компоненты аналогично get)
+console.log(now.setHours(18));              // установить часы (и остальные компоненты аналогично get)
+
+
+function User(name, id) {                   // функция конструктор
+    this.name = name;
+    this.id = id;
+    this.human = true;
+    this.hello = function () {
+        console.log(`Hello, my name is ${this.name}`);
+    };
+}
+
+let firstUser = new User('Dan', 315820);    // User { name: 'Dan', id: 315820, human: true }
+
+User.prototype.exit = function () {         // добавление метода в существующий объект
+    console.log(`${this.name} всё`);
+};
