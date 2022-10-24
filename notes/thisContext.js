@@ -30,6 +30,7 @@ const objct = {
     }
 };
 objct.sum();
+
 // 2.1
 function User(name, id) {
     this.name = name;
@@ -64,7 +65,7 @@ function count(num) {
 
 const bouble = count.bind(2);
 console.log(bouble(3));         // 6
-console.log(bouble(11));         // 22
+console.log(bouble(11));        // 22
 
 // 5
 const btn = document.querySelector('button');
