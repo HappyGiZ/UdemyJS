@@ -12,7 +12,7 @@ const box = document.getElementById('box'),
     wrapper = document.querySelector('.wrapper'),       // первый элемент с классом .wrapper
     oneHeart = wrapper.querySelectorAll('.heart'),      // все элементы .heart исключительно внутри wrapper
 
-    dif = document.createElement('div');
+    dif = document.createElement('div');                // создаёт новый элемент с заданным тегом
 
 
 
