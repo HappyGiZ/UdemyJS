@@ -2,6 +2,10 @@ console.log(Object.keys(obj).length);                   //количество �
 
 const { border, bg } = options.colors;                  // деструктуризация объекта
 
+const log = function (a, b, ...anotherArgs) {           // rest оператор
+    console.log(a, b, anotherArgs);                     // собирает все аргументы кроме указанных основных
+};                                                      // и формирует из этого массив
+log(1, 2, 3, 4, 5, 6);                                  // 1 2 [ 3, 4, 5, 6 ]
 
 
 const box = document.getElementById('box'),
