@@ -67,7 +67,7 @@ window.addEventListener('DOMContentLoaded', function () {
       'hours': hours,
       'minutes': minutes,
       'seconds': seconds
-    }
+    };
   }
 
   function getZero(num) {
@@ -265,12 +265,7 @@ window.addEventListener('DOMContentLoaded', function () {
           `;
       form.insertAdjacentElement('afterend', statusMessage);
 
-      // создаётся запрос
-      const request = new XMLHttpRequest();
-      // метод для настройки запроса - POST в файл
-      request.open('POST', 'server.php');
-      // HTTP заголовок для передачи файла
-      request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
       // создаётся объект FormData, собранный из инпутов form
       const formData = new FormData(form);
 
@@ -280,24 +275,28 @@ window.addEventListener('DOMContentLoaded', function () {
         object[key] = value;
       });
 
-      // конвертация объекта в JSON
-      const json = JSON.stringify(object);
-
       // отправка заполненной формы (на основе formData)
-      request.send(json);
-
-      // событие, срабатывающее после конечной загрузки запроса
-      request.addEventListener('load', () => {
-        if (request.status === 200) {
-          console.log(request.response);
+      fetch('server.php', {
+        method: 'POST',
+        body: JSON.stringify(object),
+        headers: { 'Content-type': 'application/json' }
+      })
+        // преобразование ответа
+        .then(data => data.text())
+        // data - данные, которые возвращаются из промиса (которые вернул сервер)
+        .then(data => {
+          console.log(data);
           showThanksModal(message.success);
-          // сброс данных в форме
           statusMessage.remove();
-          form.reset();
-        } else {
+        })
+        // обработка ошибок
+        .catch(() => {
           showThanksModal(message.failure);
-        }
-      });
+        })
+        // очистка формы. Происходит в любом случае
+        .finally(() => {
+          form.reset();
+        });
     });
   }
 
