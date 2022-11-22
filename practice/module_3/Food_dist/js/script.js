@@ -322,4 +322,108 @@ window.addEventListener('DOMContentLoaded', function () {
       closeModal();
     }, 4000);
   }
+
+
+  // Slider
+
+  /*
+    const
+      slides = document.querySelectorAll('.offer__slide'),
+      prevSlide = document.querySelector('.offer__slider-prev'),
+      nextSlide = document.querySelector('.offer__slider-next'),
+      currentSlideNumber = document.querySelector('#current'),
+      totalSlides = document.querySelector('#total');
+    let slideIndex = 0;
+  
+    if (slides.length < 9) {
+      totalSlides.textContent = `0${slides.length}`;
+    } else {
+      totalSlides.textContent = slides.length;
+    }
+    // slides.length < 9 ? totalSlides.textContent = `0${slides.length}` : totalSlides.textContent = slides.length;
+  
+    function hideAllSlides() {
+      slides.forEach(slide => {
+        slide.classList.add('hide');
+        slide.classList.remove('show', 'fade');
+      });
+    }
+  
+  
+    function showSldie(i = 0) {
+      slides[i].classList.add('show');
+      slides[i].classList.remove('hide');
+  
+      if (slides.length < 9) {
+        currentSlideNumber.textContent = `0${i + 1}`;
+      } else {
+        currentSlideNumber.textContent = i + 1;
+      }
+    }
+  
+    hideAllSlides();
+    showSldie(slideIndex);
+  
+    nextSlide.addEventListener('click', function (event) {
+      hideAllSlides();
+      showSldie(slideIndex + 1);
+    });
+  
+    prevSlide.addEventListener('click', function () {
+      hideAllSlides();
+      showSldie(slideIndex - 1);
+    });
+  */
+
+  const
+    slides = document.querySelectorAll('.offer__slide'),
+    prevSlide = document.querySelector('.offer__slider-prev'),
+    nextSlide = document.querySelector('.offer__slider-next'),
+    total = document.querySelector('#total'),
+    current = document.querySelector('#current');
+  let slideIndex = 1;
+
+  showSlides(slideIndex);
+
+  if (slides.length < 10) {
+    total.textContent = `0${slides.length}`;
+  } else {
+    total.textContent = slides.length;
+  }
+
+  function showSlides(n) {
+    if (n > slides.length) {
+      slideIndex = 1;
+    }
+
+    if (n < 1) {
+      slideIndex = slides.length;
+    }
+
+    // скрытие всех слайдов
+    slides.forEach(slide => slide.style.display = 'none');
+    // отображение нужного слайда
+    slides[slideIndex - 1].style.display = 'block';
+
+    if (slides.length < 10) {
+      current.textContent = `0${slideIndex}`;
+    } else {
+      current.textContent = slideIndex;
+    }
+  }
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  prevSlide.addEventListener('click', () => {
+    plusSlides(-1);
+  });
+
+  nextSlide.addEventListener('click', () => {
+    plusSlides(+1);
+  });
+
+
+
 });
