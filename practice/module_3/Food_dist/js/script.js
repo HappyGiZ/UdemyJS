@@ -326,104 +326,85 @@ window.addEventListener('DOMContentLoaded', function () {
 
   // Slider
 
-  /*
-    const
-      slides = document.querySelectorAll('.offer__slide'),
-      prevSlide = document.querySelector('.offer__slider-prev'),
-      nextSlide = document.querySelector('.offer__slider-next'),
-      currentSlideNumber = document.querySelector('#current'),
-      totalSlides = document.querySelector('#total');
-    let slideIndex = 0;
-  
-    if (slides.length < 9) {
-      totalSlides.textContent = `0${slides.length}`;
-    } else {
-      totalSlides.textContent = slides.length;
-    }
-    // slides.length < 9 ? totalSlides.textContent = `0${slides.length}` : totalSlides.textContent = slides.length;
-  
-    function hideAllSlides() {
-      slides.forEach(slide => {
-        slide.classList.add('hide');
-        slide.classList.remove('show', 'fade');
-      });
-    }
-  
-  
-    function showSldie(i = 0) {
-      slides[i].classList.add('show');
-      slides[i].classList.remove('hide');
-  
-      if (slides.length < 9) {
-        currentSlideNumber.textContent = `0${i + 1}`;
-      } else {
-        currentSlideNumber.textContent = i + 1;
-      }
-    }
-  
-    hideAllSlides();
-    showSldie(slideIndex);
-  
-    nextSlide.addEventListener('click', function (event) {
-      hideAllSlides();
-      showSldie(slideIndex + 1);
-    });
-  
-    prevSlide.addEventListener('click', function () {
-      hideAllSlides();
-      showSldie(slideIndex - 1);
-    });
-  */
-
   const
     slides = document.querySelectorAll('.offer__slide'),
     prevSlide = document.querySelector('.offer__slider-prev'),
     nextSlide = document.querySelector('.offer__slider-next'),
     total = document.querySelector('#total'),
-    current = document.querySelector('#current');
-  let slideIndex = 1;
+    current = document.querySelector('#current'),
+    // для карусели
+    slidesWrapper = document.querySelector('.offer__slider-wrapper'),
+    slidesField = document.querySelector('.offer__slider-inner'),
+    width = window.getComputedStyle(slidesWrapper).width;
 
-  showSlides(slideIndex);
+  let
+    slideIndex = 1,
+    offset = 0;
 
   if (slides.length < 10) {
     total.textContent = `0${slides.length}`;
+    current.textContent = `0${slideIndex}`;
   } else {
     total.textContent = slides.length;
+    current.textContent = slideIndex;
   }
 
-  function showSlides(n) {
-    if (n > slides.length) {
+  slidesField.style.width = 100 * slides.length + '%';
+  slidesField.style.display = 'flex';
+  slidesField.style.transition = '0.5s all';
+
+  // скрытие слайдов не попадающих в ширину враппера
+  slidesWrapper.style.overflow = 'hidden';
+
+  slides.forEach(slide => {
+    slide.style.width = width;
+  });
+
+  nextSlide.addEventListener('click', () => {
+    // получение значения width из строки без 'px'
+    if (offset == (+width.slice(0, width.length - 2) * (slides.length - 1))) {
+      offset = 0;
+    } else {
+      offset += +width.slice(0, width.length - 2);
+    }
+
+    // смещение на один слайд
+    slidesField.style.transform = `translateX(-${offset}px)`;
+
+    if (slideIndex == slides.length) {
       slideIndex = 1;
+    } else {
+      slideIndex++;
     }
-
-    if (n < 1) {
-      slideIndex = slides.length;
-    }
-
-    // скрытие всех слайдов
-    slides.forEach(slide => slide.style.display = 'none');
-    // отображение нужного слайда
-    slides[slideIndex - 1].style.display = 'block';
 
     if (slides.length < 10) {
       current.textContent = `0${slideIndex}`;
     } else {
       current.textContent = slideIndex;
     }
-  }
-
-  function plusSlides(n) {
-    showSlides(slideIndex += n);
-  }
+  });
 
   prevSlide.addEventListener('click', () => {
-    plusSlides(-1);
+    // получение значения width из строки без 'px'
+    if (offset == 0) {
+      offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+    } else {
+      offset -= +width.slice(0, width.length - 2);
+    }
+
+    // смещение на один слайд
+    slidesField.style.transform = `translateX(-${offset}px)`;
+
+    if (slideIndex == 1) {
+      slideIndex = slides.length;
+    } else {
+      slideIndex--;
+    }
+
+    if (slides.length < 10) {
+      current.textContent = `0${slideIndex}`;
+    } else {
+      current.textContent = slideIndex;
+    }
   });
-
-  nextSlide.addEventListener('click', () => {
-    plusSlides(+1);
-  });
-
-
-
 });
