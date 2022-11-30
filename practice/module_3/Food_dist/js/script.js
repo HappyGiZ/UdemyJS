@@ -3,7 +3,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
   // Tabs
 
-  let tabs = document.querySelectorAll('.tabheader__item'),
+  let
+    tabs = document.querySelectorAll('.tabheader__item'),
     tabsContent = document.querySelectorAll('.tabcontent'),
     tabsParent = document.querySelector('.tabheader__items');
 
@@ -49,7 +50,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   // Timer
 
-  const deadline = '2022-11-31';
+  const deadline = '2022-12-31';
 
   function getTimeRemaining(endtime) {
     // преобразование полученной извне строки в числовое представление
@@ -412,12 +413,16 @@ window.addEventListener('DOMContentLoaded', function () {
     dots.push(dot);
   }
 
+  function widthDigits(str) {
+    return +str.replace(/\D/g, '');
+  }
+
   nextSlide.addEventListener('click', () => {
     // получение значения width из строки без 'px'
-    if (offset == (+width.slice(0, width.length - 2) * (slides.length - 1))) {
+    if (offset == widthDigits(width) * (slides.length - 1)) {
       offset = 0;
     } else {
-      offset += +width.slice(0, width.length - 2);
+      offset += widthDigits(width);
     }
 
     // смещение на один слайд
@@ -436,9 +441,9 @@ window.addEventListener('DOMContentLoaded', function () {
   prevSlide.addEventListener('click', () => {
     // получение значения width из строки без 'px'
     if (offset == 0) {
-      offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+      offset = widthDigits(width) * (slides.length - 1);
     } else {
-      offset -= +width.slice(0, width.length - 2);
+      offset -= widthDigits(width);
     }
 
     // смещение на один слайд
@@ -459,13 +464,12 @@ window.addEventListener('DOMContentLoaded', function () {
       const slideTo = e.target.getAttribute('data-slide-to');
 
       slideIndex = slideTo;
-      offset = +width.slice(0, width.length - 2) * (slideTo - 1);
+      offset = widthDigits(width) * (slideTo - 1);
 
       slidesField.style.transform = `translateX(-${offset}px)`;
 
       currentSlide();
       dotSelector();
-
     });
   });
 
