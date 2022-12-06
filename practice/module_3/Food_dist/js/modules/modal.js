@@ -1,48 +1,55 @@
-function modal() {
-  // Modal
+function closeModal(modalSelector) {
+  const modal = document.querySelector(modalSelector);
 
-  const
-    modalTrigger = document.querySelectorAll('[data-modal]'),
-    modal = document.querySelector('.modal');
+  modal.classList.add('hide');
+  modal.classList.remove('show');
+  document.body.style.overflow = '';
+}
 
-  modalTrigger.forEach(btn => {
-    btn.addEventListener('click', openModal);
-  });
+function openModal(modalSelector, modalTimerId) {
+  const modal = document.querySelector(modalSelector);
 
-  function closeModal() {
-    modal.classList.add('hide');
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-  }
+  modal.classList.add('show');
+  modal.classList.remove('hide');
+  document.body.style.overflow = 'hidden';
 
-  function openModal() {
-    modal.classList.add('show');
-    modal.classList.remove('hide');
-    document.body.style.overflow = 'hidden';
+  console.log(modalTimerId);
+  if (modalTimerId) {
     // отмена случайного повторного открытия модального окна
     clearInterval(modalTimerId);
   }
+}
+
+function modal(triggerSelector, modalSelector, modalTimerId) {
+  // Modal
+
+  const
+    modalTrigger = document.querySelectorAll(triggerSelector),
+    modal = document.querySelector(modalSelector);
+
+  modalTrigger.forEach(btn => {
+    btn.addEventListener('click', () => openModal(modalSelector, modalTimerId));
+  });
 
   modal.addEventListener('click', (e) => {
     // при клике на подложку, или крестик
     if (e.target === modal || e.target.getAttribute('data-close') == "") {
-      closeModal();
+      closeModal(modalSelector);
     }
   });
 
   document.addEventListener('keydown', (e) => {
     if (e.code === "Escape" && modal.classList.contains('show')) {
-      closeModal();
+      closeModal(modalSelector);
     }
   });
 
-  const modalTimerId = setTimeout(openModal, 300000);
 
   function showModalByScroll() {
     // сумма прокрученной части страницы и видимой части страницы
     // >= полной высоте прокрутки (высоте сайта) - 1px (устранение бага браузера или монитора)
     if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
-      openModal();
+      openModal(modalSelector, modalTimerId);
       // после срабатывания функции удалить обработчик событий
       window.removeEventListener('scroll', showModalByScroll);
     }
@@ -50,4 +57,6 @@ function modal() {
   window.addEventListener('scroll', showModalByScroll);
 }
 
-module.exports = modal;
+export default modal;
+export { closeModal };
+export { openModal };
